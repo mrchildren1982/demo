@@ -1,10 +1,12 @@
 package com.example.demo.domain.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,8 @@ import com.example.demo.domain.entity.Child;
 import com.example.demo.domain.entity.Parent;
 import com.example.demo.domain.repository.ChildRepository;
 import com.example.demo.domain.repository.ParentRepository;
+import com.example.demo.exception.BusinessException;
+import com.example.demo.exception.DataNotFoundException;
 
 @Transactional
 @Service
@@ -26,9 +30,15 @@ public class FamilyService {
 	@Autowired
 	private ChildRepository childRepository;
 
-	public List<FamilyDto> getFamilyData() {
+	@Autowired
+	private MessageSource messageSource;
+
+	public List<FamilyDto> getFamilyData() throws BusinessException {
 
 		List<Parent> parents = parentRepository.findAll();
+		if (parents == null || parents.size() == 0) {
+			throw new DataNotFoundException();
+		}
 		List<Child> childrens = childRepository.findAll();
 
 		List<FamilyDto> familys = new ArrayList<>();
@@ -89,7 +99,21 @@ public class FamilyService {
 
 	private boolean isContains(Integer id, List<Integer> ids) {
 
+		if (id == null || ids == null || ids.size() == 0)  {
+			return false;
+		}
 		return ids.contains(id);
+	}
+
+	private boolean isContains(Integer id, Integer...ids) {
+
+		if (id == null || ids == null || ids.length == 0) {
+			return false;
+		}
+
+		return Arrays.stream(ids).filter(i -> i== id
+				).count() > 0;
+
 	}
 
 	private boolean isSameFamily(Integer familyId1, Integer familyId2) {
