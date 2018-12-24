@@ -2,25 +2,9 @@ package com.example.demo.domain.dto;
 
 public class ChildDto {
 
-	private Integer familyId;
-
 	private String name;
 
 	private Integer age;
-
-	/**
-	 * @return familyId
-	 */
-	public Integer getFamilyId() {
-		return familyId;
-	}
-
-	/**
-	 * @param familyId セットする familyId
-	 */
-	public void setFamilyId(Integer familyId) {
-		this.familyId = familyId;
-	}
 
 	/**
 	 * @return name
