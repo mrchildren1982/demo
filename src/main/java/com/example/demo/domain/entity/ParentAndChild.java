@@ -1,19 +1,21 @@
 package com.example.demo.domain.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+
+import org.seasar.doma.Entity;
+import org.seasar.doma.GeneratedValue;
+import org.seasar.doma.GenerationType;
 
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name = "t_child")
-public class Child  {
+@Data
+public class ParentAndChild extends Parent{
 
 	@Id
 	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Integer id;
 
 	private Integer familyId;
@@ -77,6 +79,7 @@ public class Child  {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+
 
 
 }

@@ -116,6 +116,27 @@ public class FamilyService {
 
 	}
 
+	private boolean isContains(String target, String ...values) {
+
+		for (String value : values) {
+			if(isEqualString(target, value)) {
+				return true;
+			}
+		}
+		return false;
+
+
+	}
+
+	private boolean isEqualString(String value1, String value2) {
+
+		if( value1 == null || value1.length() == 0 || value2 ==  null || value2.length() == 0 ) {
+			return false;
+		} else {
+			return value1.equals(value2);
+		}
+	}
+
 	private boolean isSameFamily(Integer familyId1, Integer familyId2) {
 
 		return Integer.compare(familyId1, familyId2) == 0;

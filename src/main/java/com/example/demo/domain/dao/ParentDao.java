@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Select;
-import org.seasar.doma.boot.ConfigAutowireable;
 
 import com.example.demo.domain.entity.Parent;
+import com.example.demo.domain.entity.ParentAndChild;
 
+//@ConfigAutowireable
+@DomaRepository
 @Dao
-@ConfigAutowireable
 public interface ParentDao {
 
 	@Select
@@ -19,6 +20,10 @@ public interface ParentDao {
 	public Parent selectById(Integer id);
 
 	@Select
-	public List<Parent> selectByFamilyId(Integer familyId);
+	public List<Parent> selectByFamilyId(Integer id);
+
+	@Select
+	public ParentAndChild selectParentAndChild(Integer parentId);
+
 
 }
