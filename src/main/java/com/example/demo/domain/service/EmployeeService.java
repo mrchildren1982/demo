@@ -34,6 +34,7 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
+
 	/** 部署情報テーブル リポジトリインタフェース */
 	@Autowired
 	private DepartmentRepository departmentRepository;
