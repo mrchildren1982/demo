@@ -1,17 +1,19 @@
 package com.example.demo.controller;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,25 +29,44 @@ import com.example.demo.exception.DataNotFoundException;
 @RequestMapping("/attachment")
 public class AttachementController {
 
+
 	private static final Logger logger = LoggerFactory.getLogger(AttachementController.class);
 
 	@Autowired
 	private AttachmentService attachementService;
 
-	// @RequestMapping(method = RequestMethod.GET)
-	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<List<AttachmentDto>> getAllData() throws BusinessException {
+	@Autowired
+	private AttachementValidator attachmentValidator;
 
-		List<AttachmentDto> response = attachementService.getAllData();
-		return ResponseEntity.ok(response);
 
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+
+		binder.addValidators(attachmentValidator);
 	}
 
-	@RequestMapping(method = RequestMethod.GET,value = "{id}")
-	public ResponseEntity<AttachmentDto> getById(@PathVariable("id") @Validated Integer id) throws BusinessException {
+	// @RequestMapping(method = RequestMethod.GET)
+//	@GetMapping
+//	@ResponseStatus(HttpStatus.OK)
+//	public ResponseEntity<List<AttachmentDto>> getAllData() throws BusinessException {
+//
+//		List<AttachmentDto> response = attachementService.getAllData();
+//		return ResponseEntity.ok(response);
+//
+//	}
 
-		AttachmentDto attachmentDto = attachementService.getById(id);
+	@RequestMapping(method = RequestMethod.GET,value = "{id}")
+	public ResponseEntity<AttachmentDto> getById(@Validated @PathVariable(value ="id" , required = true) @NotEmpty String id, BindingResult result) throws BusinessException {
+
+		if(result.hasErrors()) {
+			throw new IllegalArgumentException("引数が不正です");
+		}
+
+
+		if (!isNum(id)) {
+			throw new IllegalArgumentException("引数が不正です");
+		}
+		AttachmentDto attachmentDto = attachementService.getById(Integer.valueOf(id));
 
 		return ResponseEntity.ok(attachmentDto);
 
@@ -60,5 +81,15 @@ public class AttachementController {
 		logger.warn("handlerException", ex);
 		Map<String, String> body = Collections.singletonMap("exeption'reason", "data not found");
 		return body;
+	}
+
+	private boolean isNum(String target) {
+
+		try {
+			Integer.parseInt(target);
+		} catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
 	}
 }

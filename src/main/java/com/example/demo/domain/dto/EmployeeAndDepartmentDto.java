@@ -1,10 +1,13 @@
 package com.example.demo.domain.dto;
 
+import javax.validation.constraints.NotNull;
+
 import lombok.Data;
 
 @Data
 public class EmployeeAndDepartmentDto extends EmployeeDto{
 
+	@NotNull
 	private Integer departmentId;
 
 	private String departmentName;

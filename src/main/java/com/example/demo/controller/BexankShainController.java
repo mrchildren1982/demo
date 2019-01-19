@@ -7,19 +7,27 @@ import java.util.Map;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.domain.entity.BexankShain;
+import com.example.demo.domain.dto.BexankShainDto;
 import com.example.demo.domain.service.BexankShainService;
 import com.example.demo.exception.BusinessException;
 
@@ -27,45 +35,68 @@ import com.example.demo.exception.BusinessException;
 @RequestMapping("/bexankShain")
 public class BexankShainController {
 
+	private static final String APPLICATION_JSON = "application/json";
+
 	private static final org.jboss.logging.Logger logger = LoggerFactory.logger(BexankShainController.class);
 
 	@Autowired
 	private BexankShainService service;
 
-	@RequestMapping(method = RequestMethod.GET, value = "{id}")
-	public BexankShain getShain(@PathVariable("id") Long id, BindingResult result) throws BusinessException {
+	@Autowired
+	private BexankShainValidator validator;
 
-		if (result.hasErrors()) {
-			return null;
-		}
-		BexankShain bexankShain = service.getById(id);
-
-		return bexankShain;
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(validator);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<BexankShain> getAllShains() {
+	@GetMapping(value = "{id}", produces = APPLICATION_JSON)
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<BexankShainDto> getShain(@PathVariable("id") Long id)
+			throws BusinessException {
+
+		BexankShainDto bexankShain = service.getById(id);
+
+		return ResponseEntity.ok(bexankShain);
+	}
+
+	@GetMapping(produces = APPLICATION_JSON)
+	@ResponseStatus(HttpStatus.OK)
+	public List<BexankShainDto> getAllShains() {
 		return service.selectAll();
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public BexankShain update(@Validated @RequestBody BexankShain shain) {
-		return service.updateShain(shain);
+	@PutMapping(produces = APPLICATION_JSON, consumes = APPLICATION_JSON)
+	@ResponseStatus(HttpStatus.OK)
+	public void update(@Validated @RequestBody BexankShainDto shain) {
+		service.updateShain(shain);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, path = "/insertAll")
-	public BexankShain insertShain(@Validated @RequestBody BexankShain shain) {
+	@PostMapping(path = "/insertAll", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void insertShain(@Validated @RequestBody BexankShainDto shain, @RequestParam(value="dummy",required=true) Integer dummy,
+			BindingResult result) {
 
-		return service.insertShain(shain);
+		if (result.hasErrors()) {
+			throw new IllegalArgumentException("引数が不正です");
+		}
+		service.insertShain(shain);
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public List<BexankShain> insertShains(@Validated @RequestBody List<BexankShain> shains) {
+	@PostMapping(consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void insertShains(@Validated @RequestBody List<BexankShainDto> shains,
+			@RequestParam(value="dummy",required= true) Integer dummy, BindingResult result) {
 
-		return service.insertShains(shains);
+		if (result.hasErrors()) {
+			throw new IllegalArgumentException("引数が不正です");
+		}
+
+		service.insertShains(shains);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE)
+	@DeleteMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAllShains() {
 		service.deleteAll();
 	}

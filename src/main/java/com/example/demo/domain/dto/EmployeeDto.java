@@ -2,26 +2,43 @@ package com.example.demo.domain.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
+@Valid
 public class EmployeeDto {
 
-	/** 氏名 */
+	/** ID */
+	@NotNull			//必須
+//	@Pattern(regexp = "[a-zA-Z0-9]*")		//英数字 (Integer型にはこのアノテーションは適用できない)
 	private Integer id;
 
 	/** 氏名 */
 	private String name;
+
 	/** 年齢*/
+	@Min(18)
+	@Max(65)
 	private Integer age;
 
 	/** 給料 */
+	@Min(20)
 	private Integer salary;
 
 	/** 職種 */
 	private String jobType;
 
 	/** 雇用日 */
+	@Past	//過去日時であること
+	@DateTimeFormat(pattern = "yyyyMMdd")
 	private LocalDateTime hiredate;
 
 	/** 部署ID*/

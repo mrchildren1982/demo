@@ -22,6 +22,9 @@ public class AttachmentService {
 	@Autowired
 	private AttachmentRepository attachmentRepository;
 
+//	@Autowired
+//	private ModelMapper modelMapper;
+
 	public List<AttachmentDto> getAllData() throws DataNotFoundException {
 
 		//attachmentテーブルより全レコードを取得する
@@ -37,7 +40,9 @@ public class AttachmentService {
 
 			AttachmentDto dto = new AttachmentDto();
 			BeanUtils.copyProperties(attachment.get(i), dto);
+//			AttachmentDto destination = modelMapper.map(attachment.get(i),AttachmentDto.class);
 			attachmentDto.add(dto);
+//			attachmentDto.add(destination);
 		}
 		return attachmentDto;
 	}
