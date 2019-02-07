@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import java.util.Collections;
 import java.util.Map;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +55,7 @@ public class AttachementController {
 //	}
 
 	@RequestMapping(method = RequestMethod.GET,value = "{id}")
-	public ResponseEntity<AttachmentDto> getById(@Validated @PathVariable(value ="id" , required = true) @NotEmpty String id, BindingResult result) throws BusinessException {
+	public ResponseEntity<AttachmentDto> getById(@Validated @PathVariable(value ="id" , required = true)  String id, BindingResult result) throws BusinessException {
 
 		if(result.hasErrors()) {
 			throw new IllegalArgumentException("引数が不正です");

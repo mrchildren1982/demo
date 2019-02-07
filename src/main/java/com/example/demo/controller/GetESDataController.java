@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GetESDataController {
 
-	@Autowired
-	// private ESDataService esDataService;
-
 	private static final Logger logger = LoggerFactory.getLogger(GetESDataController.class);
 
 	@Autowired

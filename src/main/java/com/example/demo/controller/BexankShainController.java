@@ -1,8 +1,13 @@
 package com.example.demo.controller;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +32,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.domain.dto.BexankDto;
 import com.example.demo.domain.dto.BexankShainDto;
 import com.example.demo.domain.service.BexankShainService;
 import com.example.demo.exception.BusinessException;
 
 @RestController
 @RequestMapping("/bexankShain")
+@Validated
 public class BexankShainController {
 
 	private static final String APPLICATION_JSON = "application/json";
@@ -47,23 +54,41 @@ public class BexankShainController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		binder.addValidators(validator);
+//		binder.addValidators(validator);
 	}
 
-	@GetMapping(value = "{id}", produces = APPLICATION_JSON)
+	@GetMapping(value = "/search",produces = APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<BexankShainDto> getShain(@PathVariable("id") Long id)
+	public ResponseEntity<List<BexankShainDto>> getShain( @RequestParam(value ="id",required = false) Long id)
 			throws BusinessException {
 
-		BexankShainDto bexankShain = service.getById(id);
+		BexankShainDto bexankShain = null;
+		List<BexankShainDto> shains = new ArrayList<>();
+		if( id != null) {
 
-		return ResponseEntity.ok(bexankShain);
+			bexankShain = service.getById(id);
+			shains.add(bexankShain);
+		} else {
+			shains = service.selectAll();
+		}
+		return ResponseEntity.ok(shains);
 	}
 
-	@GetMapping(produces = APPLICATION_JSON)
+	@GetMapping(value = "/postgres/search",produces = APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.OK)
-	public List<BexankShainDto> getAllShains() {
-		return service.selectAll();
+	public ResponseEntity<List<BexankDto>> getShainById( @RequestParam(value ="id",required = false) String id)
+			throws BusinessException {
+
+		BexankDto bexankShain = null;
+		List<BexankDto> shains = new ArrayList<>();
+		if( id != null) {
+
+			bexankShain = service.getByDomaDaoById(id);
+			shains.add(bexankShain);
+		} else {
+			shains = service.selectByDomaDaoAll();
+		}
+		return ResponseEntity.ok(shains);
 	}
 
 	@PutMapping(produces = APPLICATION_JSON, consumes = APPLICATION_JSON)
@@ -74,19 +99,20 @@ public class BexankShainController {
 
 	@PostMapping(path = "/insertAll", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.CREATED)
-	public void insertShain(@Validated @RequestBody BexankShainDto shain, @RequestParam(value="dummy",required=true) Integer dummy,
-			BindingResult result) {
+	public void insertShain(@Validated @RequestBody BexankShainDto shain,
+			@NotNull @RequestParam(value = "dummy", required = true) Integer dummy, BindingResult result) {
 
 		if (result.hasErrors()) {
 			throw new IllegalArgumentException("引数が不正です");
 		}
 		service.insertShain(shain);
+
 	}
 
 	@PostMapping(consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
 	@ResponseStatus(HttpStatus.CREATED)
 	public void insertShains(@Validated @RequestBody List<BexankShainDto> shains,
-			@RequestParam(value="dummy",required= true) Integer dummy, BindingResult result) {
+			@Valid @NotNull @RequestParam(value = "dummy", required = true) Integer dummy, BindingResult result) {
 
 		if (result.hasErrors()) {
 			throw new IllegalArgumentException("引数が不正です");
@@ -95,6 +121,19 @@ public class BexankShainController {
 		service.insertShains(shains);
 	}
 
+	@PostMapping(path="/insertBexank" ,consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	@ResponseStatus(HttpStatus.CREATED)
+	public void insertBexank(@Validated @RequestBody BexankDto bexankDto) {
+
+		try {
+			service.insertBexank(bexankDto);
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+
+	}
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAllShains() {
@@ -116,4 +155,7 @@ public class BexankShainController {
 		errMap.put("status", HttpStatus.METHOD_NOT_ALLOWED);
 		return errMap;
 	}
+
+
+
 }

@@ -28,7 +28,6 @@ import com.example.demo.exception.DataNotFoundException;
 @RequestMapping("/shain")
 public class ShainController {
 
-	@Autowired
 	private static final Logger logger = LoggerFactory.getLogger(ShainController.class);
 
 	@Autowired

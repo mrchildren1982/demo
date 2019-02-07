@@ -23,7 +23,6 @@ public class BexankShainValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 
-
 		if (target instanceof BexankShainDto) {
 
 			BexankShainDto shain = BexankShainDto.class.cast(target);

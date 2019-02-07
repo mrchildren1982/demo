@@ -22,7 +22,6 @@ import com.example.demo.exception.BusinessException;
 @RequestMapping("/family")
 public class FamilyController {
 
-	@Autowired
 	private static final Logger logger = LoggerFactory.getLogger(FamilyController.class);
 
 	@Autowired
