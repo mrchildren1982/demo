@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -24,6 +25,19 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
 public class AppConfig implements Config {
+
+	// private static final AppConfig CONFIG = new AppConfig();
+	//
+	// private final LocalTransactionDataSource dataSource;
+	//
+	// private final TransactionManager transactionManager;
+	//
+	// private AppConfig() {
+	// dataSource = new LocalTransactionDataSource(getDataSource());
+	// transactionManager = new
+	// LocalTransactionManager(dataSource.getLocalTransaction(getJdbcLogger()));
+	//
+	// }
 
 	@Bean
 	public ModelMapper modelMapper() {
@@ -57,7 +71,10 @@ public class AppConfig implements Config {
 		abstractRoutingDataSource.setDefaultTargetDataSource(dataSourceForDefault());
 
 		abstractRoutingDataSource.afterPropertiesSet();
-		return abstractRoutingDataSource;
+//		return new TransactionAwareDataSourceProxy(abstractRoutingDataSource);
+
+
+		return new TransactionAwareDataSourceProxy(abstractRoutingDataSource);
 
 	}
 
@@ -75,5 +92,14 @@ public class AppConfig implements Config {
 		return DataSourceBuilder.create().driverClassName("com.mysql.jdbc.Driver")
 				.url("jdbc:mysql://localhost:3306/sampledba").build();
 	}
+
+	// @Override
+	// public TransactionManager getTransactionManager() {
+	// return transactionManager;
+	// }
+	//
+	// public static AppConfig singleton() {
+	// return CONFIG;
+	// }
 
 }
