@@ -6,22 +6,22 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.domain.entity.BexankShain;
+import com.example.demo.domain.entity.BShain;
 
 @Repository
-public interface BexankShainRepository extends JpaRepository<BexankShain, Long> {
+public interface BexankShainRepository extends JpaRepository<BShain, Long> {
 
 	@Override
-	Optional<BexankShain> findById(Long id);
+	Optional<BShain> findById(Long id);
 
 	@Override
-	List<BexankShain> findAll();
+	List<BShain> findAll();
 
 	@Override
-	BexankShain save(BexankShain shain);
+	BShain save(BShain shain);
 
 	@Override
-	BexankShain saveAndFlush(BexankShain shain);
+	BShain saveAndFlush(BShain shain);
 
 	@Override
 	public void deleteAll();

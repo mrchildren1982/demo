@@ -18,7 +18,7 @@ import com.example.demo.config.SwitchingDataSource;
 import com.example.demo.domain.dto.BexankDto;
 import com.example.demo.domain.dto.BexankShainDto;
 import com.example.demo.domain.entity.Bexank;
-import com.example.demo.domain.entity.BexankShain;
+import com.example.demo.domain.entity.BShain;
 import com.example.demo.exception.DataNotFoundException;
 
 import lombok.NonNull;
@@ -42,7 +42,7 @@ public class BexankShainService {
 
 		logger.debug("ビーサンク社員テーブルサービス検索開始");
 
-		Optional<BexankShain> shain = repository.findById(id);
+		Optional<BShain> shain = repository.findById(id);
 
 		if (!shain.isPresent()) {
 			throw new DataNotFoundException("該当のデータが存在しません");
@@ -79,12 +79,12 @@ public class BexankShainService {
 	@SwitchingDataSource(DataSourceType.MYSQL)
 	public List<BexankShainDto> selectAll() {
 
-		List<BexankShain> shain = repository.findAll();
+		List<BShain> shain = repository.findAll();
 		if (shain.size() == 0) {
 			return null;
 		} else {
 			List<BexankShainDto> list = new ArrayList<BexankShainDto>();
-			for (BexankShain elem : shain) {
+			for (BShain elem : shain) {
 
 				BexankShainDto dto = mapper.map(elem, BexankShainDto.class);
 
@@ -117,31 +117,33 @@ public class BexankShainService {
 	}
 
 	public void insertShain(@NonNull BexankShainDto shainDto) {
-		BexankShain shain = mapper.map(shainDto, BexankShain.class);
+		BShain shain = mapper.map(shainDto, BShain.class);
 		repository.save(shain);
+		throw new RuntimeException();
 	}
 
+	@SwitchingDataSource(DataSourceType.POSTGRES)
 	public void insertBexank(@NonNull BexankDto bexankDto) throws SQLException {
 
 		Bexank bexank = mapper.map(bexankDto, Bexank.class);
 
 		int count = domaRepository.insert(bexank);
 
-		throw new SQLException();
+		throw new RuntimeException();
 	}
 
 	public void updateShain(@NonNull BexankShainDto shainDto) {
 
-		BexankShain shain = mapper.map(shainDto, BexankShain.class);
+		BShain shain = mapper.map(shainDto, BShain.class);
 		repository.saveAndFlush(shain);
 	}
 
 	public void insertShains(@NonNull List<BexankShainDto> shainDtos) {
 
-		List<BexankShain> shains = new ArrayList<>();
+		List<BShain> shains = new ArrayList<>();
 		for (BexankShainDto elem : shainDtos) {
 
-			BexankShain shain = mapper.map(elem, BexankShain.class);
+			BShain shain = mapper.map(elem, BShain.class);
 			shains.add(shain);
 		}
 

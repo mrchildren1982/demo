@@ -119,6 +119,7 @@ public class BexankShainController {
 		}
 
 		service.insertShains(shains);
+
 	}
 
 	@PostMapping(path="/insertBexank" ,consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
@@ -132,8 +133,9 @@ public class BexankShainController {
 			e.printStackTrace();
 		}
 
-
 	}
+
+
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteAllShains() {

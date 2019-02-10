@@ -6,141 +6,164 @@ import org.seasar.doma.Id;
 import org.seasar.doma.Table;
 
 /**
- * ビーサンクテーブルエンティティ
- *
- * @author 雅幸
- *
+ * ビーサンク
  */
-@Entity
+@Entity(listener = BexankListener.class)
 @Table(name = "bexank")
 public class Bexank {
 
-	/** ID */
-	@Id
-	@Column(name = "id")
-	private Long id;
+    /** 社員ID */
+    @Id
+    @Column(name = "id")
+    String id;
 
-	/** 名前 */
-	@Column(name = "name")
-	private String name;
+    /** 社員名 */
+    @Column(name = "name")
+    String name;
 
-	/** 優先度 */
-	@Column(name = "priority")
-	private Integer priority;
+    /** チーム決め優先度 */
+    @Column(name = "priority")
+    Integer priority;
 
-	/** 参加フラグ */
-	@Column(name = "sanka_flag")
-	private String sankaFlag;
+    /** 参加フラグ */
+    @Column(name = "sanka_flag")
+    String sankaFlag;
 
-	/** 新人チームフラグ */
-	@Column(name = "sinjin_team_flag")
-	private String shinjinTeamFlag;
+    /** 新人チームフラグ */
+    @Column(name = "sinjin_team_flag")
+    String sinjinTeamFlag;
 
-	/** チーム */
-	@Column(name = "team")
-	private String team;
+    /** チーム */
+    @Column(name = "team")
+    String team;
 
-	@Column(name = "zaiseki_flag")
-	private String zaisekiFlag;
+    /** */
+    @Column(name = "zaiseki_flag")
+    String zaisekiFlag;
 
-	/**
-	 * @return id
-	 */
-	public Long getId() {
-		return id;
-	}
+    /** 
+     * Returns the id.
+     * 
+     * @return the id
+     */
+    public String getId() {
+        return id;
+    }
 
-	/**
-	 * @param id セットする id
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /** 
+     * Sets the id.
+     * 
+     * @param id the id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return name
-	 */
-	public String getName() {
-		return name;
-	}
+    /** 
+     * Returns the name.
+     * 
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param name セットする name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /** 
+     * Sets the name.
+     * 
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @return priority
-	 */
-	public Integer getPriority() {
-		return priority;
-	}
+    /** 
+     * Returns the priority.
+     * 
+     * @return the priority
+     */
+    public Integer getPriority() {
+        return priority;
+    }
 
-	/**
-	 * @param priority セットする priority
-	 */
-	public void setPriority(Integer priority) {
-		this.priority = priority;
-	}
+    /** 
+     * Sets the priority.
+     * 
+     * @param priority the priority
+     */
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 
-	/**
-	 * @return sankaFlag
-	 */
-	public String getSankaFlag() {
-		return sankaFlag;
-	}
+    /** 
+     * Returns the sankaFlag.
+     * 
+     * @return the sankaFlag
+     */
+    public String getSankaFlag() {
+        return sankaFlag;
+    }
 
-	/**
-	 * @param sankaFlag セットする sankaFlag
-	 */
-	public void setSankaFlag(String sankaFlag) {
-		this.sankaFlag = sankaFlag;
-	}
+    /** 
+     * Sets the sankaFlag.
+     * 
+     * @param sankaFlag the sankaFlag
+     */
+    public void setSankaFlag(String sankaFlag) {
+        this.sankaFlag = sankaFlag;
+    }
 
-	/**
-	 * @return shinjinTeamFlag
-	 */
-	public String getShinjinTeamFlag() {
-		return shinjinTeamFlag;
-	}
+    /** 
+     * Returns the sinjinTeamFlag.
+     * 
+     * @return the sinjinTeamFlag
+     */
+    public String getSinjinTeamFlag() {
+        return sinjinTeamFlag;
+    }
 
-	/**
-	 * @param shinjinTeamFlag セットする shinjinTeamFlag
-	 */
-	public void setShinjinTeamFlag(String shinjinTeamFlag) {
-		this.shinjinTeamFlag = shinjinTeamFlag;
-	}
+    /** 
+     * Sets the sinjinTeamFlag.
+     * 
+     * @param sinjinTeamFlag the sinjinTeamFlag
+     */
+    public void setSinjinTeamFlag(String sinjinTeamFlag) {
+        this.sinjinTeamFlag = sinjinTeamFlag;
+    }
 
-	/**
-	 * @return team
-	 */
-	public String getTeam() {
-		return team;
-	}
+    /** 
+     * Returns the team.
+     * 
+     * @return the team
+     */
+    public String getTeam() {
+        return team;
+    }
 
-	/**
-	 * @param team セットする team
-	 */
-	public void setTeam(String team) {
-		this.team = team;
-	}
+    /** 
+     * Sets the team.
+     * 
+     * @param team the team
+     */
+    public void setTeam(String team) {
+        this.team = team;
+    }
 
-	/**
-	 * @return zaisekiFlag
-	 */
-	public String getZaisekiFlag() {
-		return zaisekiFlag;
-	}
+    /** 
+     * Returns the zaisekiFlag.
+     * 
+     * @return the zaisekiFlag
+     */
+    public String getZaisekiFlag() {
+        return zaisekiFlag;
+    }
 
-	/**
-	 * @param zaisekiFlag セットする zaisekiFlag
-	 */
-	public void setZaisekiFlag(String zaisekiFlag) {
-		this.zaisekiFlag = zaisekiFlag;
-	}
-
-
-
+    /** 
+     * Sets the zaisekiFlag.
+     * 
+     * @param zaisekiFlag the zaisekiFlag
+     */
+    public void setZaisekiFlag(String zaisekiFlag) {
+        this.zaisekiFlag = zaisekiFlag;
+    }
 }

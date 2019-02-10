@@ -107,7 +107,7 @@ public class EmployeeController {
 
 	@RequestMapping(method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<EmployeeAndDepartmentDto> updateEmployee(@Validated @RequestBody EmployeeAndDepartmentDto dto ,@RequestParam("version") Long version) {
+	public ResponseEntity<EmployeeAndDepartmentDto> updateEmployee(@Validated @RequestBody EmployeeAndDepartmentDto dto ,@RequestParam("version") int version) {
 
 		EmployeeAndDepartmentDto retVal = employeeService.update(dto, version);
 		return ResponseEntity.ok(retVal);

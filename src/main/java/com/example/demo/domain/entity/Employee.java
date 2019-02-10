@@ -1,201 +1,279 @@
 package com.example.demo.domain.entity;
 
 import java.time.LocalDateTime;
+import org.seasar.doma.Column;
+import org.seasar.doma.Entity;
+import org.seasar.doma.Table;
+import org.seasar.doma.Version;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Version;
-
-import lombok.Data;
-
-@Data
-@Entity
+/**
+ */
+@Entity(listener = EmployeeListener.class)
 @Table(name = "employee")
 public class Employee {
 
-	/** 氏名 */
-	@Id
-	@Column(name = "id")
-	private Integer id;
+    /** */
+    @Column(name = "id")
+    Integer id;
 
-	/** 氏名 */
-	@Column(name = "name")
-	private String name;
-	/** 年齢*/
-	@Column(name = "age")
-	private Integer age;
+    /** */
+    @Column(name = "name")
+    String name;
 
-	/** 給料 */
-	@Column(name = "salary")
-	private Integer salary;
+    /** */
+    @Column(name = "age")
+    Integer age;
 
-	/** 職種 */
-	@Column(name = "jobType")
-	private String jobType;
+    /** */
+    @Column(name = "salary")
+    Integer salary;
 
-	/** 雇用日 */
-	@Column(name = "hiredate")
-	private LocalDateTime hiredate;
+    /** */
+    @Column(name = "job_type")
+    String jobType;
 
-	/** 部署ID*/
-	@Column(name = "departmentId")
-	private Integer departmentId;
+    /** */
+    @Column(name = "hiredate")
+    LocalDateTime hiredate;
 
-	/** バージョン情報 */
-	@Column(name = "version")
-	@Version
-	private Long version;
+    /** */
+    @Column(name = "department_id")
+    Integer departmentId;
 
-	/** 登録日時 */
-	@Column(name = "insertTimeStamp")
-	private LocalDateTime insertTimeStamp;
+    /** */
+    @Version
+    @Column(name = "version")
+    Integer version;
 
-	/** 更新日時 */
-	@Column(name = "updateTimeStamp")
-	private LocalDateTime updateTimeStamp;
+    /** */
+    @Column(name = "inserttimestamp")
+    LocalDateTime inserttimestamp;
 
-	/**
-	 * @return id
-	 */
-	public Integer getId() {
-		return id;
-	}
+    /** */
+    @Column(name = "updatetimestamp")
+    LocalDateTime updatetimestamp;
 
-	/**
-	 * @param id セットする id
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    /** */
+    @Column(name = "insert_time_stamp")
+    LocalDateTime insertTimeStamp;
 
-	/**
-	 * @return name
-	 */
-	public String getName() {
-		return name;
-	}
+    /** */
+    @Column(name = "update_time_stamp")
+    LocalDateTime updateTimeStamp;
 
-	/**
-	 * @param name セットする name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /** 
+     * Returns the id.
+     * 
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
 
-	/**
-	 * @return age
-	 */
-	public Integer getAge() {
-		return age;
-	}
+    /** 
+     * Sets the id.
+     * 
+     * @param id the id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	/**
-	 * @param age セットする age
-	 */
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+    /** 
+     * Returns the name.
+     * 
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @return salary
-	 */
-	public Integer getSalary() {
-		return salary;
-	}
+    /** 
+     * Sets the name.
+     * 
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @param salary セットする salary
-	 */
-	public void setSalary(Integer salary) {
-		this.salary = salary;
-	}
+    /** 
+     * Returns the age.
+     * 
+     * @return the age
+     */
+    public Integer getAge() {
+        return age;
+    }
 
-	/**
-	 * @return jobType
-	 */
-	public String getJobType() {
-		return jobType;
-	}
+    /** 
+     * Sets the age.
+     * 
+     * @param age the age
+     */
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-	/**
-	 * @param jobType セットする jobType
-	 */
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
-	}
+    /** 
+     * Returns the salary.
+     * 
+     * @return the salary
+     */
+    public Integer getSalary() {
+        return salary;
+    }
 
-	/**
-	 * @return hiredate
-	 */
-	public LocalDateTime getHiredate() {
-		return hiredate;
-	}
+    /** 
+     * Sets the salary.
+     * 
+     * @param salary the salary
+     */
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
 
-	/**
-	 * @param hiredate セットする hiredate
-	 */
-	public void setHiredate(LocalDateTime hiredate) {
-		this.hiredate = hiredate;
-	}
+    /** 
+     * Returns the jobType.
+     * 
+     * @return the jobType
+     */
+    public String getJobType() {
+        return jobType;
+    }
 
-	/**
-	 * @return departmentId
-	 */
-	public Integer getDepartmentId() {
-		return departmentId;
-	}
+    /** 
+     * Sets the jobType.
+     * 
+     * @param jobType the jobType
+     */
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
+    }
 
-	/**
-	 * @param departmentId セットする departmentId
-	 */
-	public void setDepartmentId(Integer departmentId) {
-		this.departmentId = departmentId;
-	}
+    /** 
+     * Returns the hiredate.
+     * 
+     * @return the hiredate
+     */
+    public LocalDateTime getHiredate() {
+        return hiredate;
+    }
 
-	/**
-	 * @return version
-	 */
-	public Long getVersion() {
-		return version;
-	}
+    /** 
+     * Sets the hiredate.
+     * 
+     * @param hiredate the hiredate
+     */
+    public void setHiredate(LocalDateTime hiredate) {
+        this.hiredate = hiredate;
+    }
 
-	/**
-	 * @param version セットする version
-	 */
-	public void setVersion(Long version) {
-		this.version = version;
-	}
+    /** 
+     * Returns the departmentId.
+     * 
+     * @return the departmentId
+     */
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
 
-	/**
-	 * @return insertTimeStamp
-	 */
-	public LocalDateTime getInsertTimeStamp() {
-		return insertTimeStamp;
-	}
+    /** 
+     * Sets the departmentId.
+     * 
+     * @param departmentId the departmentId
+     */
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
+    }
 
-	/**
-	 * @param insertTimeStamp セットする insertTimeStamp
-	 */
-	public void setInsertTimeStamp(LocalDateTime insertTimeStamp) {
-		this.insertTimeStamp = insertTimeStamp;
-	}
+    /** 
+     * Returns the version.
+     * 
+     * @return the version
+     */
+    public Integer getVersion() {
+        return version;
+    }
 
-	/**
-	 * @return updateTimeStamp
-	 */
-	public LocalDateTime getUpdateTimeStamp() {
-		return updateTimeStamp;
-	}
+    /** 
+     * Sets the version.
+     * 
+     * @param version the version
+     */
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
-	/**
-	 * @param updateTimeStamp セットする updateTimeStamp
-	 */
-	public void setUpdateTimeStamp(LocalDateTime updateTimeStamp) {
-		this.updateTimeStamp = updateTimeStamp;
-	}
+    /** 
+     * Returns the inserttimestamp.
+     * 
+     * @return the inserttimestamp
+     */
+    public LocalDateTime getInserttimestamp() {
+        return inserttimestamp;
+    }
 
+    /** 
+     * Sets the inserttimestamp.
+     * 
+     * @param inserttimestamp the inserttimestamp
+     */
+    public void setInserttimestamp(LocalDateTime inserttimestamp) {
+        this.inserttimestamp = inserttimestamp;
+    }
 
+    /** 
+     * Returns the updatetimestamp.
+     * 
+     * @return the updatetimestamp
+     */
+    public LocalDateTime getUpdatetimestamp() {
+        return updatetimestamp;
+    }
 
+    /** 
+     * Sets the updatetimestamp.
+     * 
+     * @param updatetimestamp the updatetimestamp
+     */
+    public void setUpdatetimestamp(LocalDateTime updatetimestamp) {
+        this.updatetimestamp = updatetimestamp;
+    }
+
+    /** 
+     * Returns the insertTimeStamp.
+     * 
+     * @return the insertTimeStamp
+     */
+    public LocalDateTime getInsertTimeStamp() {
+        return insertTimeStamp;
+    }
+
+    /** 
+     * Sets the insertTimeStamp.
+     * 
+     * @param insertTimeStamp the insertTimeStamp
+     */
+    public void setInsertTimeStamp(LocalDateTime insertTimeStamp) {
+        this.insertTimeStamp = insertTimeStamp;
+    }
+
+    /** 
+     * Returns the updateTimeStamp.
+     * 
+     * @return the updateTimeStamp
+     */
+    public LocalDateTime getUpdateTimeStamp() {
+        return updateTimeStamp;
+    }
+
+    /** 
+     * Sets the updateTimeStamp.
+     * 
+     * @param updateTimeStamp the updateTimeStamp
+     */
+    public void setUpdateTimeStamp(LocalDateTime updateTimeStamp) {
+        this.updateTimeStamp = updateTimeStamp;
+    }
 }

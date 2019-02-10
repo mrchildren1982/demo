@@ -117,7 +117,7 @@ public class EmployeeService {
 		Employee employee = new Employee();
 		BeanUtils.copyProperties(dto, employee);
 		employee.setId(dto.getId());
-		employee.setVersion(1L);
+		employee.setVersion(1);
 
 		try {
 			// 登録
@@ -155,7 +155,7 @@ public class EmployeeService {
 	 * @param version
 	 * @return
 	 */
-	public EmployeeAndDepartmentDto update(EmployeeAndDepartmentDto dto, Long version) {
+	public EmployeeAndDepartmentDto update(EmployeeAndDepartmentDto dto, int version) {
 
 		Employee employee = new Employee();
 		BeanUtils.copyProperties(dto, employee);
@@ -170,7 +170,7 @@ public class EmployeeService {
 
 		Department department = new Department();
 		BeanUtils.copyProperties(dto, department);
-		department.setVersion(version);
+		department.setVersion((long)version);
 		departmentRepository.save(department);
 
 		return dto;

@@ -45,7 +45,7 @@ public class ShainController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, value= "{id}")
-	public Shain updateShain(@PathVariable Long id,@RequestBody Shain shain) {
+	public Shain updateShain(@PathVariable Integer id,@RequestBody Shain shain) {
 
 		shain.setId(id);
 		return service.update(shain);

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="shain")
-public class BexankShain {
+public class BShain {
 
 	/** 社員ID */
 	@Id
@@ -29,7 +29,7 @@ public class BexankShain {
 	@Column(name="exp")
 	private Long experience;
 
-	public BexankShain() {
+	public BShain() {
 
 	}
 

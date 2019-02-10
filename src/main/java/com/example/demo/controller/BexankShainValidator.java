@@ -7,7 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.example.demo.domain.dto.BexankShainDto;
-import com.example.demo.domain.entity.BexankShain;
+import com.example.demo.domain.entity.BShain;
 
 @Component
 public class BexankShainValidator implements Validator {
@@ -36,7 +36,7 @@ public class BexankShainValidator implements Validator {
 			List<?> list = (List<?>)target;
 			for (Object elem : list) {
 
-				if (elem instanceof BexankShain) {
+				if (elem instanceof BShain) {
 
 					BexankShainDto shain = BexankShainDto.class.cast(elem);
 

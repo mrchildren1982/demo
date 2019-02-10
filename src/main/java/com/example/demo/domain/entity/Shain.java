@@ -1,45 +1,80 @@
 package com.example.demo.domain.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.seasar.doma.Column;
+import org.seasar.doma.Entity;
+import org.seasar.doma.Id;
+import org.seasar.doma.Table;
 
-import lombok.Data;
-
-@Entity
-@Data
+/**
+ */
+@Entity(listener = ShainListener.class)
 @Table(name = "shain")
 public class Shain {
 
-	@Id
-	private Long id;
+    /** */
+    @Id
+    @Column(name = "id")
+    Integer id;
 
-	private String name;
+    /** */
+    @Column(name = "name")
+    String name;
 
-	private Long exp;
+    /** */
+    @Column(name = "exp")
+    Integer exp;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /** 
+     * Returns the id.
+     * 
+     * @return the id
+     */
+    public Integer getId() {
+        return id;
+    }
 
-	public Long getId() {
-		return this.id;
-	}
+    /** 
+     * Sets the id.
+     * 
+     * @param id the id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /** 
+     * Returns the name.
+     * 
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    /** 
+     * Sets the name.
+     * 
+     * @param name the name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setExp(Long exp) {
-		this.exp = exp;
+    /** 
+     * Returns the exp.
+     * 
+     * @return the exp
+     */
+    public Integer getExp() {
+        return exp;
+    }
 
-	}
-
-	public Long getExp() {
-		return this.exp;
-	}
+    /** 
+     * Sets the exp.
+     * 
+     * @param exp the exp
+     */
+    public void setExp(Integer exp) {
+        this.exp = exp;
+    }
 }

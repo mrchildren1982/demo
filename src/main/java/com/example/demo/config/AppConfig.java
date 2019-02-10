@@ -16,9 +16,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.jta.JtaTransactionManager;
 
 @Configuration
 @ComponentScan("com.example.demo")
@@ -71,9 +76,9 @@ public class AppConfig implements Config {
 		abstractRoutingDataSource.setDefaultTargetDataSource(dataSourceForDefault());
 
 		abstractRoutingDataSource.afterPropertiesSet();
-//		return new TransactionAwareDataSourceProxy(abstractRoutingDataSource);
+		// return new TransactionAwareDataSourceProxy(abstractRoutingDataSource);
 
-
+		// データソースをトランザクション管理対象に追加
 		return new TransactionAwareDataSourceProxy(abstractRoutingDataSource);
 
 	}
@@ -102,4 +107,18 @@ public class AppConfig implements Config {
 	// return CONFIG;
 	// }
 
+	public void test() {
+
+		//トランザクション管理
+		//トランザクションマネージャー
+		//PlatformTransactionManagerインタフェース
+		//ｊDBCやMyBatisのようなJDBCベースのライブラリによるデータベースアクセスを行う場合に利用する
+		PlatformTransactionManager jdbcManager = new DataSourceTransactionManager();
+
+		PlatformTransactionManager hibernateManager = new HibernateTransactionManager();
+
+		PlatformTransactionManager manager3 = new JpaTransactionManager();
+
+		PlatformTransactionManager manager4 = new JtaTransactionManager();
+	}
 }
