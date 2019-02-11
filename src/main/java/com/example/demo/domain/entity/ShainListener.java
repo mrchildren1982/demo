@@ -8,6 +8,8 @@ import org.seasar.doma.jdbc.entity.PreDeleteContext;
 import org.seasar.doma.jdbc.entity.PreInsertContext;
 import org.seasar.doma.jdbc.entity.PreUpdateContext;
 
+import com.example.demo.domain.dto.Shain;
+
 /**
  * 
  */

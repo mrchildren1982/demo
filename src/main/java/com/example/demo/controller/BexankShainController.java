@@ -97,7 +97,7 @@ public class BexankShainController {
 		service.updateShain(shain);
 	}
 
-	@PostMapping(path = "/insertAll", consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+	@PostMapping(path = "/insertAll", consumes = APPLICATION_JSON, produces = APPLICATION_JSON, headers="X-Migration=true")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void insertShain(@Validated @RequestBody BexankShainDto shain,
 			@NotNull @RequestParam(value = "dummy", required = true) Integer dummy, BindingResult result) {

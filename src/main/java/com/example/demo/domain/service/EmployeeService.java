@@ -14,11 +14,11 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.domain.dao.EmployeeDao;
 import com.example.demo.domain.dto.EmployeeAndDepartmentDto;
 import com.example.demo.domain.entity.Department;
 import com.example.demo.domain.entity.Employee;
 import com.example.demo.domain.repository.DepartmentRepository;
-import com.example.demo.domain.repository.EmployeeRepository;
 import com.example.demo.exception.BusinessException;
 import com.example.demo.exception.InsertFailureException;
 
@@ -35,7 +35,7 @@ public class EmployeeService {
 
 	/** 従業員テーブルリポジトリインタフェース */
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private EmployeeDao employeeDao;
 
 	/** 部署情報テーブル リポジトリインタフェース */
 	@Autowired
@@ -52,7 +52,7 @@ public class EmployeeService {
 	public List<EmployeeAndDepartmentDto> getAll() throws NoSuchMessageException, BusinessException {
 
 		// 従業員情報全件検索
-		List<Employee> employees = employeeRepository.findAll();
+		List<Employee> employees = employeeDao.selectAll();
 		// データ存在チェック
 		if (employees == null || employees.size() == 0) {
 			throw new BusinessException(
@@ -90,7 +90,7 @@ public class EmployeeService {
 	public EmployeeAndDepartmentDto getById(Integer id) throws Exception {
 
 		// 従業員テーブルID検索
-		Optional<Employee> employeeOpt = employeeRepository.findById(id);
+		Optional<Employee> employeeOpt = employeeDao.selectById(id);
 		// 存在チェック
 		if (!employeeOpt.isPresent()) {
 
@@ -121,7 +121,7 @@ public class EmployeeService {
 
 		try {
 			// 登録
-			employeeRepository.save(employee);
+			employeeDao.insert(employee);
 
 		} catch (Exception e) {
 			throw new InsertFailureException(
@@ -165,7 +165,7 @@ public class EmployeeService {
 		// if (nowRecord.isPresent()) {
 		// 更新
 		// レポジトリクラスのsaveメソッドはデータがない場合、insert、データが存在するときはupdateする仕様であるため、データの存在チェックは不要
-		employeeRepository.save(employee);
+		employeeDao.update(employee);
 		// }
 
 		Department department = new Department();
@@ -225,9 +225,9 @@ public class EmployeeService {
 
 	public void deleteEmployee(Integer employeeId) {
 
-		Employee employee = employeeRepository.getOne(employeeId);
+		Optional<Employee> employee = employeeDao.selectById(employeeId);
 
-		employeeRepository.deleteById(employeeId);
+		employeeDao.deleteById(employeeId);
 		// departmentRepository.deleteById(employee.getDepartmentId());
 		// //部署マスタのレコードは削除しない
 

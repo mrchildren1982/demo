@@ -31,19 +31,6 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @EnableTransactionManagement
 public class AppConfig implements Config {
 
-	// private static final AppConfig CONFIG = new AppConfig();
-	//
-	// private final LocalTransactionDataSource dataSource;
-	//
-	// private final TransactionManager transactionManager;
-	//
-	// private AppConfig() {
-	// dataSource = new LocalTransactionDataSource(getDataSource());
-	// transactionManager = new
-	// LocalTransactionManager(dataSource.getLocalTransaction(getJdbcLogger()));
-	//
-	// }
-
 	@Bean
 	public ModelMapper modelMapper() {
 

@@ -106,12 +106,36 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId>
-			</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.ninja-squad</groupId>
+			<artifactId>DbSetup</artifactId>
+			<version>2.1.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- ■フロントエンドフレームワーク -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>2.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>3.3.1</version>
 		</dependency>
 	</dependencies>
 

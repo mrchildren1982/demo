@@ -6,7 +6,7 @@ import com.example.demo.domain.entity.SampleEntity;
 
 //@AnnotateWith(annotations = { @Annotation(target = AnnotationTarget.CLASS, type = ConfigAutowireable.class), })
 //@ConfigAutowireable
-//@Dao
+//@Dao @ConfigAutowireable
 public interface SampleRepository {
 
 //	@Select
