@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.domain.entity.Shain;
+import com.example.demo.domain.dto.Shain;
 import com.example.demo.domain.service.ShainService;
 import com.example.demo.exception.DataNotFoundException;
 

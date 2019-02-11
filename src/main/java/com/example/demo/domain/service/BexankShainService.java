@@ -15,10 +15,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.config.DataSourceType;
 import com.example.demo.config.SwitchingDataSource;
+import com.example.demo.domain.dao.BexankShainDao;
 import com.example.demo.domain.dto.BexankDto;
 import com.example.demo.domain.dto.BexankShainDto;
-import com.example.demo.domain.entity.Bexank;
 import com.example.demo.domain.entity.BShain;
+import com.example.demo.domain.entity.Bexank;
 import com.example.demo.exception.DataNotFoundException;
 
 import lombok.NonNull;
@@ -33,7 +34,7 @@ public class BexankShainService {
 	private com.example.demo.domain.repository.BexankShainRepository repository;
 
 	@Autowired
-	private com.example.demo.domain.dao.BexankShainDao domaRepository;
+	private BexankShainDao bexankShainDao;
 
 	private static ModelMapper mapper = new ModelMapper();
 
@@ -62,7 +63,7 @@ public class BexankShainService {
 
 		logger.debug("ビーサンク社員テーブルサービス検索開始");
 
-		Optional<Bexank> shain = domaRepository.selectById(id);
+		Optional<Bexank> shain = bexankShainDao.selectById(id);
 
 		if (!shain.isPresent()) {
 			throw new DataNotFoundException("該当のデータが存在しません");
@@ -99,7 +100,7 @@ public class BexankShainService {
 	@SwitchingDataSource(DataSourceType.POSTGRES)
 	public List<BexankDto> selectByDomaDaoAll() {
 
-		List<Bexank> shain = domaRepository.selectAllData();
+		List<Bexank> shain = bexankShainDao.selectAllData();
 		if (shain.size() == 0) {
 			return null;
 		} else {
@@ -127,7 +128,7 @@ public class BexankShainService {
 
 		Bexank bexank = mapper.map(bexankDto, Bexank.class);
 
-		int count = domaRepository.insert(bexank);
+		int count = bexankShainDao.insert(bexank);
 
 		throw new RuntimeException();
 	}
