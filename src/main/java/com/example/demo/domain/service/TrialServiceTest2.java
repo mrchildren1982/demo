@@ -16,7 +16,7 @@ import com.example.demo.domain.entity.TrialEntity;
 
 
 
-public class TrialServiceTest {
+public class TrialServiceTest2 {
 
 	@Autowired
 	public TrialService service;
@@ -70,7 +70,7 @@ public class TrialServiceTest {
 		List<TrialEntity> entities = serviceImpl.getTrialEntities();
 		service.setTrialEntities(entities);
 
-		List<Trial> actual = service.getById();
+		List<Trial> actual = service.find();
 
 		actual.forEach(System.out::println);
 		assertThat(actual.size(),is(1));
@@ -125,7 +125,7 @@ public class TrialServiceTest {
 		List<TrialEntity> entities = serviceImpl.getTrialEntities();
 		service.setTrialEntities(entities);
 
-		List<Trial> actual = service.getById();
+		List<Trial> actual = service.find();
 
 		actual.forEach(System.out::println);
 		assertThat(actual.size(),is(2));
@@ -209,7 +209,7 @@ public class TrialServiceTest {
 		List<TrialEntity> entities = serviceImpl.getTrialEntities();
 		service.setTrialEntities(entities);
 
-		List<Trial> actual = service.getById();
+		List<Trial> actual = service.find();
 
 		actual.forEach(System.out::println);
 		assertThat(actual.size(),is(2));
@@ -305,7 +305,7 @@ public class TrialServiceTest {
 		List<TrialEntity> entities = serviceImpl.getTrialEntities();
 		service.setTrialEntities(entities);
 
-		List<Trial> actual = service.getById();
+		List<Trial> actual = service.find();
 
 		actual.forEach(System.out::println);
 		assertThat(actual.size(),is(3));

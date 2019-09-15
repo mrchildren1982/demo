@@ -13,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.domain.dto.Company;
 import com.example.demo.domain.dto.ManagementOrganization;
 import com.example.demo.domain.dto.Trial;
-import com.example.demo.domain.dto.TrialCompanyKey;
-import com.example.demo.domain.dto.TrialMngKey;
 import com.example.demo.domain.entity.TrialEntity;
 
 /**
@@ -78,8 +76,6 @@ public class TrialService {
 
 			}
 
-
-
 			if (idx == trialEntities.size() - 1) {
 
 				Trial trial = Trial.builder().id(BigInteger.valueOf(trialId))
@@ -103,38 +99,23 @@ public class TrialService {
 
 		List<Trial> trials = new ArrayList<>();
 
-
 		List<Trial> trialsTmp = trialEntities.stream().map(entity -> createTrial(entity)).distinct()
 				.collect(Collectors.toList());
 
 		//取得結果から管理組織関連のプロパティを取り出し、トライアルID、企業IDごとにグルーピング化する
-		Map<TrialMngKey, List<ManagementOrganization>> managementMap = trialEntities.stream()
+		Map<BigInteger, List<ManagementOrganization>> managementMap = trialEntities.stream()
 				.map(entity -> createManagementOrganization(entity)).distinct()
-				.collect(Collectors.groupingBy(mng -> new TrialMngKey(mng.getTrialId(),mng.getId())));
+				.collect(Collectors.groupingBy(mng -> mng.getTrialId()));
 
 		//取得結果から企業関連のプロパティを取り出し、トライアルID、企業IDごとにグルーピング化する
-		Map<TrialCompanyKey, List<Company>> companyMap = trialEntities.stream().map(entity -> createCompany(entity))
+		Map<BigInteger, List<Company>> companyMap = trialEntities.stream().map(entity -> createCompany(entity))
 				.distinct()
-				.collect(Collectors.groupingBy(cmp -> new TrialCompanyKey(cmp.getTrialId(), cmp.getId())));
+				.collect(Collectors.groupingBy(cmp -> cmp.getTrialId()));
 
 		for (Trial c : trialsTmp) {
 
-			List<ManagementOrganization> organizations = null;
-			List<Company> companies = null;
-			for (TrialMngKey key : managementMap.keySet()) {
-				if (c.getId().compareTo(key.getTrialId()) == 0) {
-
-					organizations = managementMap.get(key);
-				}
-			}
-
-			for (TrialCompanyKey cmpKey : companyMap.keySet()) {
-
-				if (c.getId().compareTo(cmpKey.getTrialId()) == 0) {
-
-					companies = companyMap.get(cmpKey);
-				}
-			}
+			List<ManagementOrganization> organizations = managementMap.get(c.getId());
+			List<Company> companies = companyMap.get(c.getId());
 
 			Trial trial = Trial.builder().id(c.getId())
 					.name(c.getName())
